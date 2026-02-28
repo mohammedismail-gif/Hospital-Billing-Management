@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments - Hospital Billing System</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Hospital Billing System</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/patients">Patients</a></li>
+          <li><a href="/doctors">Doctors</a></li>
+          <li><a href="/appointments">Appointments</a></li>
+          <li><a href="/bills">Bills</a></li>
+          <li><a href="/payments">Payments</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h2>Appointments List</h2>
+
+      <form action="/appointments/add" method="POST">
+        <h3>Schedule New Appointment</h3>
+        <input
+          type="number"
+          name="patientID"
+          placeholder="Patient ID"
+          required
+        />
+        <input type="number" name="doctorID" placeholder="Doctor ID" required />
+        <input
+          type="date"
+          name="appointmentDate"
+          placeholder="Appointment Date"
+          required
+        />
+        <textarea name="reason" placeholder="Reason" rows="4"></textarea>
+        <input type="submit" value="Add Appointment" />
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Appointment Date</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% appointments.forEach(appointment => { %>
+          <tr>
+            <td><%= appointment.AppointmentID %></td>
+            <td><%= appointment.PatientName %></td>
+            <td><%= appointment.DoctorName %></td>
+            <td><%= appointment.AppointmentDate %></td>
+            <td><%= appointment.Notes %></td>
+            <td>
+              <a href="/appointments/edit/<%= appointment.AppointmentID %>">
+                <button>Edit</button>
+              </a>
+              <a href="/appointments/delete/<%= appointment.AppointmentID %>">
+                <button>Delete</button>
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
